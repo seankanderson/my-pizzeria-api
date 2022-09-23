@@ -32,16 +32,21 @@ async function authenticate({ email, password, ipAddress }) {
     // authentication successful so generate jwt and refresh tokens
     const jwtToken = generateJwtToken(account);
     const refreshToken = generateRefreshToken(account, ipAddress);
-
+    console.log('refreshToken...', refreshToken)
     // save refresh token
     await refreshToken.save();
 
-    // return basic details and tokens
-    return {
+    const response = {
         ...basicDetails(account),
         jwtToken,
         refreshToken: refreshToken.token
     };
+
+    console.log('formed Respnse...', response)
+
+    // return basic details and tokens
+    return response;
+
 }
 
 async function refreshToken({ token, ipAddress }) {
@@ -80,8 +85,6 @@ async function register(params, origin) {
     // validate
     
     const result = await db.Account.findOne({ email: params.email })
-
-    console.log('result...', result)
 
     if (await db.Account.findOne({ email: params.email })) {
         // send already registered error in email to prevent account enumeration

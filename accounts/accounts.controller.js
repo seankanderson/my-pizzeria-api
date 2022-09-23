@@ -37,7 +37,7 @@ function authenticate(req, res, next) {
     accountService.authenticate({ email, password, ipAddress })
         .then(({ refreshToken, ...account }) => {
             setTokenCookie(res, refreshToken);
-            res.json(account);
+            res.json({...account, refreshToken});
         })
         .catch(next);
 }
@@ -48,7 +48,7 @@ function refreshToken(req, res, next) {
     accountService.refreshToken({ token, ipAddress })
         .then(({ refreshToken, ...account }) => {
             setTokenCookie(res, refreshToken);
-            res.json(account);
+            res.json({...account, refreshToken});
         })
         .catch(next);
 }
