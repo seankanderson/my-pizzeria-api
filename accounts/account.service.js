@@ -32,7 +32,6 @@ async function authenticate({ email, password, ipAddress }) {
     // authentication successful so generate jwt and refresh tokens
     const jwtToken = generateJwtToken(account);
     const refreshToken = generateRefreshToken(account, ipAddress);
-    console.log('refreshToken...', refreshToken)
     // save refresh token
     await refreshToken.save();
 
@@ -41,8 +40,6 @@ async function authenticate({ email, password, ipAddress }) {
         jwtToken,
         refreshToken: refreshToken.token
     };
-
-    console.log('formed Respnse...', response)
 
     // return basic details and tokens
     return response;

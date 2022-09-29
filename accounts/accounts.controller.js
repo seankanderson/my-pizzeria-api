@@ -91,6 +91,7 @@ function registerSchema(req, res, next) {
 }
 
 function register(req, res, next) {
+    console.log('REgister request body...', req.body)
     accountService.register(req.body, req.get('origin'))
         .then((response) => res.json({ message: response }))
         .catch(next);

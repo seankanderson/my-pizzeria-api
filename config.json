@@ -1,13 +1,14 @@
 ﻿{
-    "connectionString": "mongodb+srv://seananderson:sweetsmash15!@cluster0.eqy7zah.mongodb.net/my-pizzeria?retryWrites=true&w=majority",
+    "remoteConnectionString": "mongodb+srv://seananderson:sweetsmash15!@cluster0.eqy7zah.mongodb.net/my-pizzeria?retryWrites=true&w=majority",
+    "connectionString": "mongodb://localhost:27017/my-pizzeria",
     "secret": "c92feed2-464c-4f7d-bd7b-47f217601011c92feed2-464d-4f7d-bd7b-47f227601011c92feed2-454c-9f7d-bd7b-47f217601011",
     "emailFrom": "info@node-mongo-signup-verification-api.com",
     "smtpOptions": {
         "host": "smtp.ethereal.email",
         "port": 587,
         "auth": {
-            "user": "alvah.heller30@ethereal.email",
-            "pass": "YBnv8431FGahTTWxkQ"
+            "user": "julie.kohler@ethereal.email",
+            "pass": "UbrFarHSPhTkNrh8bk"
         }
     }
 }
