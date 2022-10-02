@@ -19,27 +19,28 @@ async function saveTopping(params) {
     console.log('save topping request...', params);
     db.removeEmptyOrNullIdIfExists(params);
     const existingToppingWithSameName = await db.Menu.Topping.findOne({ name: params.name });
-
+    console.log('existingToppingWithSameName...', existingToppingWithSameName)
     const idToUpdate = _.get(params, '_id')
 
     if (idToUpdate) {
 
         const toppingToUpdate = await db.Menu.Topping.findOne({ _id: idToUpdate })
+        
+        console.log('toppingToUpdate...', toppingToUpdate)
 
-        if (!existingToppingWithSameName || existingToppingWithSameName._id === toppingToUpdate._id) {
+        if (!existingToppingWithSameName || (existingToppingWithSameName._id.toString() === toppingToUpdate._id.toString())) {
             toppingToUpdate.name = _.get(params, 'name');
-            toppingToUpdate.description = _.get(params, 'description');
-            toppingToUpdate.defaultPrice = _.get(params, 'defeaultPrice');
+            toppingToUpdate.shortDescription = _.get(params, 'shortDescription');
+            toppingToUpdate.defaultPrice = _.get(params, 'defaultPrice');
             toppingToUpdate.categories = _.get(params, 'categories');
             return toppingToUpdate.save();
         }
     }
 
     if (existingToppingWithSameName) {
-        throw 'Topping already exists';
+        throw new Error('Topping already exists');
     }
 
-    
     const newTopping = new db.Menu.Topping(params);
     await newTopping.save();
     return newTopping;
@@ -50,8 +51,7 @@ async function getAllCategories() {
 }
 
 async function deleteCategory(id) {
-    const category = await getCategory(id);
-    await category.remove();
+    return await db.Menu.Category.remove(id);
 }
 
 async function getCategoryById(id) {
@@ -80,7 +80,7 @@ async function saveCategory(params) {
     }
 
     if (existingCategoryWithSameName) {
-        throw 'Category already exists';
+        throw new Error('Category already exists');
     }
 
     const newCategory = new db.Menu.Category(params);

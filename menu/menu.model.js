@@ -10,7 +10,8 @@ const category = new Schema({
 
 const topping = new Schema({
     name: { type: String, unique: true, required: true },
-    description: { type: String },
+    shortDescription: { type: String },
+    longDescription: { type: String },
     defaultPrice: { type: Number},
     categories: [String],
     created: { type: Date, default: Date.now },

@@ -2,7 +2,8 @@ const _ = require('lodash')
 const config = require('../config.json');
 const mongoose = require('mongoose');
 const connectionOptions = { useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false };
-mongoose.connect(process.env.MONGODB_URI || config.connectionString, connectionOptions);
+mongoose.connect(global.__MONGO_URI__ || config.connectionString, connectionOptions);
+//process.env.MONGODB_URI;
 mongoose.Promise = global.Promise;
 
 module.exports = {
@@ -10,8 +11,13 @@ module.exports = {
     Menu: require('../menu/menu.model'),
     RefreshToken: require('../accounts/refresh-token.model'),
     isValidId,
-    removeEmptyOrNullIdIfExists
+    removeEmptyOrNullIdIfExists,
+    cleanup
 };
+
+function cleanup() {
+    mongoose.connection.close()
+}
 
 function isValidId(id) {
     return mongoose.Types.ObjectId.isValid(id);
