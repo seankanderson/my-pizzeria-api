@@ -16,18 +16,14 @@ async function getAllToppings() {
 }
 
 async function saveTopping(params) {
-    console.log('save topping request...', params);
     db.removeEmptyOrNullIdIfExists(params);
     const existingToppingWithSameName = await db.Menu.Topping.findOne({ name: params.name });
-    console.log('existingToppingWithSameName...', existingToppingWithSameName)
     const idToUpdate = _.get(params, '_id')
 
     if (idToUpdate) {
 
         const toppingToUpdate = await db.Menu.Topping.findOne({ _id: idToUpdate })
         
-        console.log('toppingToUpdate...', toppingToUpdate)
-
         if (!existingToppingWithSameName || (existingToppingWithSameName._id.toString() === toppingToUpdate._id.toString())) {
             toppingToUpdate.name = _.get(params, 'name');
             toppingToUpdate.shortDescription = _.get(params, 'shortDescription');

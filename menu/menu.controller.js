@@ -9,7 +9,7 @@ const { ObjectId } = require('mongoose');
 const { categorySchemaValidation, toppingSchemaValidation } = require('./menu.schema')
 
 // routes
-router.get('/category', authorize(Role.Admin), getCategories);
+router.get('/category', getCategories);
 router.post('/category', authorize(Role.Admin), categorySchemaValidation, addOrUpdateCategory);
 //router.put('/category', authorize(Role.Admin), categorySchemaValidation, addOrUpdateCategory);
 router.delete('/category', authorize(Role.Admin), categorySchemaValidation, deleteCategory);

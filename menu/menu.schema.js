@@ -16,8 +16,8 @@ function toppingSchemaValidation(req, res, next) {
         _id: Joi.string().allow(''),
         name: Joi.string(),
         shortDescription: Joi.string(),
-        longDescription: Joi.string(),
-        defaultPrice: Joi.number(),
+        longDescription: Joi.string().optional().allow(''),
+        defaultPrice: Joi.number().optional(),
         categories: Joi.array().items(Joi.string())
     });
     validateRequest(req, next, schema);
